@@ -5,4 +5,5 @@ function masterFn() {
 	document.getElementById('add-button').addEventListener('click', capp.saveEvents);
 }
 
+// waits until initial document without stylesheet and other resources is load
 document.addEventListener('DOMContentLoaded', masterFn);
