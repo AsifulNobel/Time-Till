@@ -1,0 +1,32 @@
+{
+	"manifest_version": 2,
+	"name": "Time Till",
+	"description": "Shows set countdown timers in new tab page",
+	"version": "0.1",
+
+	"offline_enabled": true,
+
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_title": "Countdown Timer",
+		"default_popup": "popup.html"
+	},
+
+	"icons": { "16": "icon16.png",
+		"48": "icon48.png",
+		"128": "icon128.png" 
+    },
+
+	"chrome_url_overrides": {
+		"newtab": "timer.html"
+	},
+
+	"options_ui": {
+		"page": "options.html",
+		"chrome_style": true
+	},
+
+	"permissions": [
+		"storage"
+	]
+}
