@@ -1,7 +1,6 @@
 function masterFn() {
-	var capp = new countApp();
-
-	capp.restoreCountdowns(document.body, 1);
+	restoreCountdowns(document.body, 1);
 }
 
+// waits until initial document without stylesheet and other resources is load
 document.addEventListener('DOMContentLoaded', masterFn);
