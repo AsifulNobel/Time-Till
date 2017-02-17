@@ -21,6 +21,40 @@ function formatTime(timeStr) {
 	'-'+addZero(timeStr.getDate())+'T'+addZero(timeStr.getHours())+':'+addZero(timeStr.getMinutes())
 }
 
+function getColorCode(timerCount) {
+	return 'blue'
+}
+
+function formatCountdown (milliseconds) {
+	// Formats milliseconds to Timer format
+	
+    function numberEnding (number) {
+    	// Checks if there should be trailing s, when year, month etc is more than 1
+        return (number > 1) ? 's ' : ' ';
+    }
+
+    var countdownStr = milliseconds <= 1000 ? 'Time Up!' : '';
+
+    var temp = Math.floor(milliseconds / 1000);
+    var years = Math.floor(temp / 31536000);
+    countdownStr = years ? years + ' year' + numberEnding(years) : '';
+    
+    //TODO: Months!
+    var days = Math.floor((temp %= 31536000) / 86400);
+    countdownStr += days ? days + ' day' + numberEnding(days) : '';
+
+    var hours = Math.floor((temp %= 86400) / 3600);
+    countdownStr += hours ? hours + ' hour' + numberEnding(hours) : '';
+
+    var minutes = Math.floor((temp %= 3600) / 60);
+    countdownStr += minutes ? minutes + ' minute' + numberEnding(minutes) : '';
+
+    if (milliseconds > 1000 && milliseconds <= 60*1000)
+    	countdownStr += 'Less than a minute';
+    
+    return countdownStr;
+}
+
 // ToDo: Modularize asynchronous callback functions for storage.get,
 // so that those functions call another function with result of storage call.
 function restoreCountdowns(timersList, divFlag) {
@@ -43,10 +77,15 @@ function restoreCountdowns(timersList, divFlag) {
 				}
 				else if (divFlag == 1) {
 					for (var key in eventDict) {
-
+						// offset is used for removing GMT offset error, since local time is saved as GMT time
 						if (eventDict.hasOwnProperty(key)) {
+							var timerCount = new Date(eventDict[key]) - Date.now() + ((new Date()).getTimezoneOffset() * 60 * 1000)
+							var timerColor = getColorCode(timerCount)
+							timerCount = formatCountdown(timerCount)
+
 							timersList.insertAdjacentHTML('beforeend', 
-									'<div>' + key + ': ' + replaceTimezone(eventDict[key]) + '</div>')
+									'<div><div class="event-name ' + timerColor + '">' + key + 
+									'</div><div class="timer">' + timerCount + '</div></div>')
 						}
 					}
 				}
