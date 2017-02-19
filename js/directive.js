@@ -21,6 +21,15 @@ function formatTime(timeStr) {
 	'-'+addZero(timeStr.getDate())+'T'+addZero(timeStr.getHours())+':'+addZero(timeStr.getMinutes())
 }
 
+function timeUpdate(milliseconds, className) {
+	setInterval(function() {
+		var timerDiv = document.getElementsByClassName(className)
+		timerDiv[0].innerHTML = formatCountdown(milliseconds)
+		milliseconds -= 60*1000
+
+	}, 60000)
+}
+
 function getColorCode(timerCount) {
 	return 'blue'
 }
@@ -63,8 +72,6 @@ function restoreCountdowns(timersList, divFlag) {
 			var eventDict = items.events
 
 			if (Object.keys(eventDict).length > 0 && timersList) {
-				console.log(Object.keys(eventDict).length)
-
 				if (divFlag == 0) {
 					for (var key in eventDict) {
 						if (eventDict.hasOwnProperty(key)) {
@@ -81,11 +88,13 @@ function restoreCountdowns(timersList, divFlag) {
 						if (eventDict.hasOwnProperty(key)) {
 							var timerCount = new Date(eventDict[key]) - Date.now() + ((new Date()).getTimezoneOffset() * 60 * 1000)
 							var timerColor = getColorCode(timerCount)
+
+							timeUpdate(timerCount, key.replace(' ', '-')+'-timer')
 							timerCount = formatCountdown(timerCount)
 
 							timersList.insertAdjacentHTML('beforeend', 
-									'<div><div class="event-name ' + timerColor + '">' + key + 
-									'</div><div class="timer">' + timerCount + '</div></div>')
+									'<div><div class="' + key.replace(' ', '-') +'-name ' + timerColor + '">' + key + 
+									'</div><div class="' + key.replace(' ', '-') +'-timer">' + timerCount + '</div></div>')
 						}
 					}
 				}

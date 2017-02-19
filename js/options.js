@@ -16,13 +16,14 @@ function buttonEventAdder() {
 }
 
 var fnList = [buttonEventAdder];
-
+var docCheckInterval = null
 // Checks if document is fully loaded every 0.5 second
-setInterval(function() {
+docCheckInterval = setInterval(function() {
 	if (document.readyState == "complete") {
 		for(var i = 0; i < fnList.length; i++) {
 			fnList[i]();
 		}
+		clearInterval(docCheckInterval);
 	}
 }, 500);
 
