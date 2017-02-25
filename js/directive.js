@@ -114,8 +114,10 @@ function saveEvent() {
 
 	if(eventTime.length > 0 && eventName.length > 0) {
 		var eventDateObj = new Date(eventTime[0].value);
+		var regex = /^([0-9a-z_ ]+)$/ig;
 
-		if (eventName[0].value.length > 0) {
+		console.log(regex.test(eventName[0].value))
+		if (eventName[0].value.length > 0 && regex.test(eventName[0].value)) {
 			if (eventDateObj - Date.now() > 0) {
 
 				storage.get('events', function(items) {
@@ -145,7 +147,7 @@ function saveEvent() {
 			}
 		}
 		else {
-			setError("Event must have a name.");
+			setError("Event must have a valid name.");
 		}
 	}
 }
@@ -172,7 +174,7 @@ function deleteEvent() {
 	
 	storage.get('events', function(items) {
 		if (typeof items.events !== "undefined") {
-			var eventDict = items.events					
+			var eventDict = items.events
 			
 			delete eventDict[eventName];
 			
