@@ -135,6 +135,8 @@ function saveEvent() {
 						});
 
 						clearError();
+						updateEvent();
+						window.location.reload();
 					}
 				})
 			}
@@ -179,9 +181,20 @@ function deleteEvent() {
 			});
 
 			clearError();
+			updateEvent();
 		}
 	})
 
 	parent.innerText = '';
 	parent.parentElement.removeChild(parent);
+}
+
+function updateEvent() {
+	// When Events are added, updated or deleted on options page,
+	// 'New Tab' page also refreshes
+	chrome.tabs.query({url: 'chrome://newtab/'},function(tabs){
+    	tabs.forEach(function(tab){
+      		chrome.tabs.reload(tab.id);
+    	});
+ 	});
 }
