@@ -42,24 +42,28 @@ function formatCountdown (milliseconds) {
         return (number > 1) ? 's ' : ' ';
     }
 
-    var countdownStr = milliseconds <= 1000 ? 'Time Up!' : '';
+    var countdownStr = '';
 
-    var temp = Math.floor(milliseconds / 1000);
-    var years = Math.floor(temp / 31536000);
-    countdownStr = years ? years + ' year' + numberEnding(years) : '';
-    
-    //TODO: Months!
-    var days = Math.floor((temp %= 31536000) / 86400);
-    countdownStr += days ? days + ' day' + numberEnding(days) : '';
-
-    var hours = Math.floor((temp %= 86400) / 3600);
-    countdownStr += hours ? hours + ' hour' + numberEnding(hours) : '';
-
-    var minutes = Math.floor((temp %= 3600) / 60);
-    countdownStr += minutes ? minutes + ' minute' + numberEnding(minutes) : '';
-
-    if (milliseconds > 1000 && milliseconds <= 60*1000)
+    if (milliseconds <= 1000) {
+    	countdownStr += 'Time Up!';
+    }
+    else if (milliseconds > 1000 && milliseconds <= 60*1000)
     	countdownStr += 'Less than a minute';
+    else {
+    	var temp = Math.floor(milliseconds / 1000);
+    	var years = Math.floor(temp / 31536000);
+    	countdownStr += years ? years + ' year' + numberEnding(years) : '';
+    
+    	//TODO: Months!
+    	var days = Math.floor((temp %= 31536000) / 86400);
+    	countdownStr += days ? days + ' day' + numberEnding(days) : '';
+
+    	var hours = Math.floor((temp %= 86400) / 3600);
+    	countdownStr += hours ? hours + ' hour' + numberEnding(hours) : '';
+
+    	var minutes = Math.floor((temp %= 3600) / 60);
+    	countdownStr += minutes ? minutes + ' minute' + numberEnding(minutes) : '';
+    }
     
     return countdownStr;
 }
