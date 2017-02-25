@@ -30,8 +30,21 @@ function timeUpdate(milliseconds, className) {
 	}, 60000)
 }
 
-function getColorCode(timerCount) {
-	return 'blue'
+function getColorCode(timerCount, totalTime) {
+	var colorCode = '';
+	var percentLeft = (timerCount/totalTime) * 100;
+
+	if (percentLeft <= 10)
+		colorCode = 'red';
+	else if (percentLeft <= 30)
+		colorCode = 'yellow';
+	else if (percentLeft <= 60)
+		colorCode = 'green';
+	else if (percentLeft <= 100)
+		colorCode = 'blue';
+
+	console.log(percentLeft)
+	return colorCode
 }
 
 function formatCountdown (milliseconds) {
@@ -79,9 +92,10 @@ function restoreCountdowns(timersList, divFlag) {
 				if (divFlag == 0) {
 					for (var key in eventDict) {
 						if (eventDict.hasOwnProperty(key)) {
+							// Added in case reloading takes too much time
 							timersList.insertAdjacentHTML('beforeend', 
-								'<li id="'+ key + '">' + key + ': ' + replaceTimezone(eventDict[key]) + 
-								' <i class="fa fa-pencil-square-o edit-ev"></i> <i class="fa fa-times delete-ev"></i>' 
+								'<li id="'+ key + '">' + key + ': ' + replaceTimezone(eventDict[key][0]) + 
+								' <i class="fa fa-pencil-square-o edit-ev"></i> <i class="fa fa-times delete-ev"></i>'
 								+ '</li>')
 						}
 					}
@@ -90,15 +104,17 @@ function restoreCountdowns(timersList, divFlag) {
 					for (var key in eventDict) {
 						// offset is used for removing GMT offset error, since local time is saved as GMT time
 						if (eventDict.hasOwnProperty(key)) {
-							var timerCount = new Date(eventDict[key]) - Date.now() + ((new Date()).getTimezoneOffset() * 60 * 1000)
-							var timerColor = getColorCode(timerCount)
+							var timerCount = new Date(eventDict[key][0]) - Date.now() + ((new Date()).getTimezoneOffset() * 60 * 1000)
+							var elapsedTime = Date.now() - new Date(eventDict[key][1])
+
+							var timerColor = getColorCode(timerCount, timerCount + elapsedTime)
 
 							timeUpdate(timerCount, key.replace(' ', '-')+'-timer')
 							timerCount = formatCountdown(timerCount)
 
 							timersList.insertAdjacentHTML('beforeend', 
-									'<div><div class="' + key.replace(' ', '-') +'-name ' + timerColor + '">' + key + 
-									'</div><div class="' + key.replace(' ', '-') +'-timer">' + timerCount + '</div></div>')
+									'<div class="event-div ' + timerColor + '"><div class="' + key.replace(' ', '-') +'-name event-name">' + key + 
+									'</div><div class="' + key.replace(' ', '-') +'-timer event-timer">' + timerCount + '</div></div>')
 						}
 					}
 				}
@@ -114,9 +130,9 @@ function saveEvent() {
 
 	if(eventTime.length > 0 && eventName.length > 0) {
 		var eventDateObj = new Date(eventTime[0].value);
+		var startDate = new Date(Date.now());
 		var regex = /^([0-9a-z_ ]+)$/ig;
 
-		console.log(regex.test(eventName[0].value))
 		if (eventName[0].value.length > 0 && regex.test(eventName[0].value)) {
 			if (eventDateObj - Date.now() > 0) {
 
@@ -124,7 +140,10 @@ function saveEvent() {
 					if (typeof items.events !== "undefined") {
 						var eventDict = items.events					
 						
-						eventDict[eventName[0].value] = eventDateObj.toUTCString()
+						if (eventDict[eventName[0].value])
+							eventDict[eventName[0].value][0] = eventDateObj.toUTCString()
+						else
+							eventDict[eventName[0].value] = [eventDateObj.toUTCString(), startDate.toUTCString()]
 						
 						storage.set({events: eventDict}, function() {
 							timersList.insertAdjacentHTML('beforeend', 
