@@ -94,7 +94,8 @@ function restoreCountdowns(timersList, divFlag) {
 						if (eventDict.hasOwnProperty(key)) {
 							// Added in case reloading takes too much time
 							timersList.insertAdjacentHTML('beforeend', 
-								'<li id="'+ key + '">' + key + ': ' + replaceTimezone(eventDict[key][0]) + 
+								'<li id="'+ key + '">' + key + ': ' + replaceTimezone(eventDict[key][1]) + 
+								' - ' + replaceTimezone(eventDict[key][0]) + 
 								' <i class="fa fa-pencil-square-o edit-ev"></i> <i class="fa fa-times delete-ev"></i>'
 								+ '</li>')
 						}
@@ -125,12 +126,13 @@ function restoreCountdowns(timersList, divFlag) {
 
 function saveEvent() {
 	var eventTime = document.getElementsByName('timer-time');
+	var eventStart = document.getElementsByName('timer-start');
 	var eventName = document.getElementsByName('timer-name');
 	var timersList = document.getElementById('timers');
 
 	if(eventTime.length > 0 && eventName.length > 0) {
 		var eventDateObj = new Date(eventTime[0].value);
-		var startDate = new Date(Date.now());
+		var startDate = new Date(eventStart[0].value);
 		var regex = /^([0-9a-z_ ]+)$/ig;
 
 		if (eventName[0].value.length > 0 && regex.test(eventName[0].value)) {
@@ -174,6 +176,7 @@ function saveEvent() {
 function editEvent() {
 	// Gets called from event element adjacent edit button
 	var eventTime = document.getElementsByName('timer-time')[0];
+	var eventStart = document.getElementsByName('timer-start')[0];
 	var eventName = document.getElementsByName('timer-name')[0];
 
 	// Gets parent element which is the event entry
@@ -181,7 +184,8 @@ function editEvent() {
 	var parentText = parent.innerText.split(': ');
 
 	eventName.value = parentText[0];
-	eventTime.value = formatTime(new Date(parentText[1]));
+	eventTime.value = formatTime(new Date((parentText[1].split(' - '))[1]));
+	eventStart.value = formatTime(new Date((parentText[1].split(' - '))[0]));
 
 	// passes context to deleteEvent fn
 	deleteEvent.call(this);
