@@ -52,7 +52,7 @@ function formatCountdown (milliseconds) {
 	
     function numberEnding (number) {
     	// Checks if there should be trailing s, when year, month etc is more than 1
-        return (number > 1) ? 's ' : ' ';
+        return (number > 1) ? 's</span>' : ' ';
     }
 
     var countdownStr = '';
@@ -65,17 +65,17 @@ function formatCountdown (milliseconds) {
     else {
     	var temp = Math.floor(milliseconds / 1000);
     	var years = Math.floor(temp / 31536000);
-    	countdownStr += years ? years + ' year' + numberEnding(years) : '';
+    	countdownStr += years ? years + '<span>year' + numberEnding(years) : '';
     
     	//TODO: Months!
     	var days = Math.floor((temp %= 31536000) / 86400);
-    	countdownStr += days ? days + ' day' + numberEnding(days) : '';
+    	countdownStr += days ? days + '<span>day' + numberEnding(days) : '';
 
     	var hours = Math.floor((temp %= 86400) / 3600);
-    	countdownStr += hours ? hours + ' hour' + numberEnding(hours) : '';
+    	countdownStr += hours ? hours + '<span>hour' + numberEnding(hours) : '';
 
     	var minutes = Math.floor((temp %= 3600) / 60);
-    	countdownStr += minutes ? minutes + ' minute' + numberEnding(minutes) : '';
+    	countdownStr += minutes ? minutes + '<span>minute' + numberEnding(minutes) : '';
     }
     
     return countdownStr;
@@ -96,7 +96,7 @@ function restoreCountdowns(timersList, divFlag) {
 							timersList.insertAdjacentHTML('beforeend', 
 								'<li id="'+ key + '">' + key + ': ' + replaceTimezone(eventDict[key][1]) + 
 								' - ' + replaceTimezone(eventDict[key][0]) + 
-								' <i class="fa fa-pencil-square-o edit-ev"></i> <i class="fa fa-times delete-ev"></i>'
+								'<br/><i class="fa fa-pencil-square-o edit-ev"></i> <i class="fa fa-times delete-ev"></i>'
 								+ '</li>')
 						}
 					}
@@ -106,7 +106,7 @@ function restoreCountdowns(timersList, divFlag) {
 						// offset is used for removing GMT offset error, since local time is saved as GMT time
 						if (eventDict.hasOwnProperty(key)) {
 							var timerCount = new Date(eventDict[key][0]) - Date.now() + ((new Date()).getTimezoneOffset() * 60 * 1000)
-							var elapsedTime = Date.now() - new Date(eventDict[key][1])
+							var elapsedTime = Date.now() - new Date(eventDict[key][1]) - ((new Date()).getTimezoneOffset() * 60 * 1000)
 
 							var timerColor = getColorCode(timerCount, timerCount + elapsedTime)
 

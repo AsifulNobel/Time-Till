@@ -3,15 +3,16 @@
 <head>
 	<title>Countdown Timer Options</title>
 	<link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/options.css">
 	<script type="text/javascript" src="../js/directive.js"></script>
 	<script type="text/javascript" src="../js/options.js"></script>
 </head>
 <body>
 	<div>
 		<input type="text" name="timer-name" placeholder="Type Event Name" autofocus="yes">
-		<input type="datetime-local" name="timer-start" value="">
-		<input type="datetime-local" name="timer-time" value="">
-		<i class="fa fa-plus-circle fa-lg" id="add-button"></i>
+		<input title="Countdown Start Date" type="datetime-local" id="timerStart" name="timer-start" value="">
+		<input title="Event Date" type="datetime-local" name="timer-time" value=""><br/>
+		<i class="fa fa-plus-square fa-lg" id="add-button"></i>
 	</div>
 
 	<div>
