@@ -46,7 +46,7 @@ function sortEvents() {
 }
 
 function masterFn() {
-	restoreCountdowns(document.body, 1);
+	restoreCountdowns(document.getElementById('parent-div'), 1);
 }
 
 // waits until initial document without stylesheet and other resources is load

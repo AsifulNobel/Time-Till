@@ -52,7 +52,7 @@ function formatCountdown (milliseconds) {
 	
     function numberEnding (number) {
     	// Checks if there should be trailing s, when year, month etc is more than 1
-        return (number > 1) ? 's</span>' : ' ';
+        return (number > 1) ? 's</span>' : '</span>';
     }
 
     var countdownStr = '';

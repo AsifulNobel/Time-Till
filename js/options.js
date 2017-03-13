@@ -4,7 +4,7 @@ function masterFn() {
 
 	/*Sets current date in countdown start date input*/
 	var y = new Date()
-	var z = new Date(y.getTime()+((new Date()).getTimezoneOffset() * 60 * 1000))
+	var z = new Date(y.getTime()-((new Date()).getTimezoneOffset() * 60 * 1000))
 
 	document.getElementById('timerStart').value = z.toJSON().slice(0,16);
 }

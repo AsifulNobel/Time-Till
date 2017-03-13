@@ -3,8 +3,15 @@ body {
 	color: #100000;
 }
 
+#parent-div {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 .event-div {
 	border: 2px solid #273849;
+	flex: 1 0 50%;
+	box-sizing: border-box;
 }
 
 .event-name {
