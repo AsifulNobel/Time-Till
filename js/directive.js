@@ -93,9 +93,18 @@ function restoreCountdowns(timersList, divFlag) {
 					for (var key in eventDict) {
 						if (eventDict.hasOwnProperty(key)) {
 							// Added in case reloading takes too much time
+							if ((new Date()).getTimezoneOffset() < 0) {
+								var temp = new Date(new Date(eventDict[key][0]) - ((new Date()).getTimezoneOffset() * 60 * 1000))
+								var temp2 = new Date(new Date(eventDict[key][1]) - ((new Date()).getTimezoneOffset() * 60 * 1000))
+							}
+							else {
+								var temp = new Date(new Date(eventDict[key][0]) + ((new Date()).getTimezoneOffset() * 60 * 1000) )
+								var temp2 = new Date(new Date(eventDict[key][1]) + ((new Date()).getTimezoneOffset() * 60 * 1000) )
+							}
+
 							timersList.insertAdjacentHTML('beforeend', 
-								'<li id="'+ key + '">' + key + ': ' + replaceTimezone(eventDict[key][1]) + 
-								' - ' + replaceTimezone(eventDict[key][0]) + 
+								'<li id="'+ key + '">' + key + ': ' + replaceTimezone(temp2.toUTCString()) + 
+								' - ' + replaceTimezone(temp.toUTCString()) + 
 								'<br/><i class="fa fa-pencil-square-o edit-ev"></i> <i class="fa fa-times delete-ev"></i>'
 								+ '</li>')
 						}
