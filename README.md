@@ -14,5 +14,10 @@ git clone https://github.com/AsifulNobel/Time-Till
 
 Then start Chrome browser and go to **extensions** page. Select **Developer Mode** and then click on *Load unpacked extension...*. When directory chooser dialog appears, choose the director where you cloned the repository.
 
+### Screenshots
+![Options Menu](screenshots/ss1.png)
+![Options Menu](screenshots/ss3.png)
+![NewTab Page](screenshots/ss2.png)
+
 ### Contributing
 To contribute to this repository with features, fork it, create new branch, add your feature and create pull-request. To report bugs or new features, create an issue using the **Issues** tab.
