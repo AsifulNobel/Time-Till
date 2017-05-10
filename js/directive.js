@@ -197,11 +197,11 @@ function saveEvent() {
 				})
 			}
 			else {
-				setError("Date must be in future.");
+				setError("Date must be in future");
 			}
 		}
 		else {
-			setError("Event must have a valid name.");
+			setError("Event must have a valid name");
 		}
 	}
 }

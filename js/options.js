@@ -4,10 +4,9 @@ function masterFn() {
 
 	// Sets current date in countdown start date input
 	var y = new Date()
-	var z = new Date(y.getTime()-((new Date()).getTimezoneOffset() * 60 * 1000))
 
 	// Get Date and Time(Only Hour and Minute) string
-	document.getElementById('timerStart').value = z.toJSON().slice(0,16);
+	document.getElementById('timerStart').value = getOffsetDate(y.toUTCString()).toJSON().slice(0,16);
 }
 
 function buttonEventAdder() {

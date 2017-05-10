@@ -2,12 +2,31 @@
 <html>
 <head>
 	<title>New Tab</title>
+	<link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
 	<script type="text/javascript" src="../js/directive.js"></script>
 	<script type="text/javascript" src="../js/timer.js"></script>
 	<link rel="stylesheet" type="text/css" href="../css/timer.css">
 </head>
 <body>
 	<div id="parent-div">
+	</div>
+
+	<div id="myModal" class="modal">
+
+		<!-- Modal content -->
+		<div class="modal-content">
+			<i class="close fa fa-times" aria-hidden="true"></i>
+			<ul>
+				<li>when box is <span class="blue">blue</span>, more than 60% of time is remaining</li>
+				<li>when box is <span class="green">green</span>, more than 30% of time is remaining</li>
+				<li>when box is <span class="yellow">yellow</span>, more than 10% of time is remaining</li>
+				<li>when box is <span class="red">red</span>, less than or equal to 10% of time is remaining</li>
+			</ul>
+		</div>
+
+	</div>
+	<div id="legend">
+		<i class="fa fa-question fa-3x" aria-hidden="true"></i>
 	</div>
 </body>
 </html>

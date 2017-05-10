@@ -18,6 +18,7 @@ Then start Chrome browser and go to **extensions** page. Select **Developer Mode
 ![Options Menu](screenshots/ss1.png)
 ![Options Menu](screenshots/ss3.png)
 ![NewTab Page](screenshots/ss2.png)
+![Description Modal](screenshots/ss4.png)
 
 ### Contributing
 To contribute to this repository with features, fork it, create new branch, add your feature and create pull-request. To report bugs or new features, create an issue using the **Issues** tab.
