@@ -21,7 +21,7 @@ input[type=text]:focus, input[type=datetime-local]:focus {
 
 .edit-ev, .delete-ev {
 	margin-top: 2%;
-	color: #f73849;
+	color: #756578;
 }
 
 .edit-ev {
@@ -35,11 +35,15 @@ ul {
 li {
 	list-style: none;
 	padding: 5%;
-	color: #f4f4f4;
-	background-color: #273849;
-	border-bottom: 2px solid #f73849;
+	border-bottom: 2px solid #959090;
 }
 
-li:last-child {
-	border-bottom: none;
+li:first-child {
+	border-top: 2px solid #959090;
+}
+
+.id {
+	font-weight: 700;
+	font-style: oblique;
+	margin-right: 3%;
 }
