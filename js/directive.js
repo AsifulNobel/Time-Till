@@ -170,30 +170,27 @@ function saveEvent() {
 
 		if (eventName[0].value.length > 0 && regex.test(eventName[0].value)) {
 			if (eventDateObj - Date.now() > 0) {
-
 				storage.get('events', function(items) {
-					if (typeof items.events !== "undefined") {
-						var eventDict = items.events					
-						
-						if (eventDict[eventName[0].value])
-							eventDict[eventName[0].value][0] = eventDateObj.toUTCString()
-						else
-							eventDict[eventName[0].value] = [eventDateObj.toUTCString(), startDate.toUTCString()]
-						
-						storage.set({events: eventDict}, function() {
-							timersList.insertAdjacentHTML('beforeend', 
-								'<li id="'+ eventName[0].value + '">' + eventName[0].value + ': ' + 
-								replaceTimezone(eventDateObj.toUTCString()) + 
-								'<i class="fa fa-pencil-square-o edit-ev"></i><i class="fa fa-times delete-ev"></i>' 
-								+ '</li>')
+					var eventDict = items.hasOwnProperty('events') ? items.events : {};
 
-							console.log("Successfully Added Event!");
-						});
+					if (eventDict.hasOwnProperty(eventName[0].value))
+						eventDict[eventName[0].value][0] = eventDateObj.toUTCString()
+					else
+						eventDict[eventName[0].value] = [eventDateObj.toUTCString(), startDate.toUTCString()]
+					
+					storage.set({events: eventDict}, function() {
+						timersList.insertAdjacentHTML('beforeend', 
+							'<li id="'+ eventName[0].value + '">' + eventName[0].value + ': ' + 
+							replaceTimezone(eventDateObj.toUTCString()) + 
+							'<i class="fa fa-pencil-square-o edit-ev"></i><i class="fa fa-times delete-ev"></i>' 
+							+ '</li>')
 
-						clearError();
-						updateEvent();
-						window.location.reload();
-					}
+						console.log("Successfully Added Event!");
+					});
+
+					clearError();
+					updateEvent();
+					window.location.reload();
 				})
 			}
 			else {
