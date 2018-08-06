@@ -7,12 +7,7 @@ Because the webstore URL of the extension is needed for generating OAuth Client 
 I needed a countdown timer for events to remind me about upcoming events i.e. Assignment Deadlines, Birthdays etc. Some might argue a installing a mobile app would have been easier, but I spend most of my awake time on my laptop using browser and other applications rather than on mobile. So building a browser extension was the more suitable solution for my need. Moreover, I wanted to brush up my JS knowledge. :smile:
 
 ### Installation
-Clone this repository with following command:
-```bash
-git clone https://github.com/AsifulNobel/Time-Till
-```
-
-Then start Chrome browser and go to **extensions** page. Select **Developer Mode** and then click on *Load unpacked extension...*. When directory chooser dialog appears, choose the director where you cloned the repository.
+Go to ***releases*** page and download the latest release in either zip or gzipped format. Next, extract it in a directory. Then start Chrome browser and go to **extensions** page. Select **Developer Mode** and then click on *Load unpacked extension...*. When directory chooser dialog appears, choose the directory where you cloned the repository. **That's it!**
 
 ### Screenshots
 ![Options Menu](screenshots/ss1.png)
